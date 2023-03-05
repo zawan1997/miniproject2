@@ -4,9 +4,26 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 public class CreateRequest {
-    private String userID;
+    private Integer userID;
+    private String username;
     private String password;
     private String email;
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getEmail() {
         return email;
@@ -14,14 +31,6 @@ public class CreateRequest {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
     }
 
     public String getPassword() {
@@ -35,7 +44,8 @@ public class CreateRequest {
    
     public static CreateRequest create(JsonObject jo) {
         CreateRequest w = new CreateRequest();
-        w.setUserID(jo.getString("userID"));
+        w.setUserID(jo.getInt("userID"));
+        w.setUsername(jo.getString("username"));
         w.setPassword(jo.getString("password"));
         w.setEmail(jo.getString("email"));
         return w;
@@ -47,6 +57,7 @@ public class CreateRequest {
     public JsonObject toJson() {
         return Json.createObjectBuilder()
                 .add("userID", userID)
+                .add("username", username)
                 .add("password", password)
                 .add("email", email)
                 .build();
