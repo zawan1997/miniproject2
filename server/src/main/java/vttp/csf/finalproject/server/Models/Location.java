@@ -1,12 +1,14 @@
 package vttp.csf.finalproject.server.Models;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 
 public class Location {
     private String name;
     private String body;
     private String primaryContactNo;
+    private String openTime;
     private String closeTime;
     private String primaryFileMediumUuid;
 
@@ -35,6 +37,15 @@ public class Location {
     public void setPrimaryContactNo(String primaryContactNo) {
         this.primaryContactNo = primaryContactNo;
     }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
 
     public String getCloseTime() {
         return closeTime;
@@ -83,4 +94,5 @@ public class Location {
 
                 .build();
     }
+
 }

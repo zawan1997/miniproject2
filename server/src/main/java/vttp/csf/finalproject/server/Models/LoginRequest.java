@@ -4,7 +4,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 public class LoginRequest {
-    private String userID;
+    private String username;
     private String password;
 
     public String getUserID() {
