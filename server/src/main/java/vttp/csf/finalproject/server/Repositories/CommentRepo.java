@@ -12,7 +12,6 @@ import vttp.csf.finalproject.server.Models.Comment;
 import vttp.csf.finalproject.server.Models.CommentMapper;
 
 @Repository
-
 public class CommentRepo {
     JdbcTemplate jdbcTemplate;
 

@@ -56,8 +56,6 @@ public class ImageCommentRepo  {
                 imageComment.getBlobc()) > 0;
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
     public List<ImageComment> getLocationImageComments(String locationUuid) {
         return jdbcTemplate.query(SQL_GET_LOCATION_IMAGE_COMMENTS+"'"+locationUuid+"'", new ImageCommentMapper());
     }

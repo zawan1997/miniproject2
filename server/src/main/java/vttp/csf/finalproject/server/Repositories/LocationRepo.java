@@ -6,10 +6,12 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import vttp.csf.finalproject.server.Models.Location;
 import vttp.csf.finalproject.server.Models.LocationMapper;
 
+@Repository
 public class LocationRepo  {
     JdbcTemplate jdbcTemplate;
 

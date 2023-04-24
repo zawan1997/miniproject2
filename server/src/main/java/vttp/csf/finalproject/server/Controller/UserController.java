@@ -1,5 +1,6 @@
 package vttp.csf.finalproject.server.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,74 +22,117 @@ import vttp.csf.finalproject.server.Services.UserService;
 
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("api/v1/users")
 public class UserController {
-    @Autowired
-	UserService userServiceImpl;	
+		@Autowired
+		UserService userService;    
+		
+		@Autowired
+		JwtGenerator jwtGenerator;
+		
+		@PostMapping("/create")
+		public ResponseEntity<User> createUser(@RequestBody User userReq) {     
+			User res = userService.create(userReq);
+			System.out.println("res : "+res);
+			
+			ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
+			
+			return responseEntity;
+		
+		}
+		
+		@PutMapping("/update")
+		public ResponseEntity<User> updateUser(@RequestBody User userReq) {     
+			User res = userService.update(userReq);
+			System.out.println("res : "+res);
+			
+			ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
+			
+			return responseEntity;
+		}
+		
+		@PutMapping("/updatePassword")  
+		public ResponseEntity<User> updateUserPassword(@RequestBody User userReq) {     
+			User res = userService.updatePassword(userReq);
+			System.out.println("res : "+res);
+			
+			ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
+			
+			return responseEntity;
+		}
+		
+		@GetMapping({""})
+		public ResponseEntity<List<User>> getAllUsers() {
+			List<User> res = userService.get();
+			System.out.println("res : "+res);
+			
+			ResponseEntity<List<User>> responseEntity = new ResponseEntity<>(res, HttpStatus.ACCEPTED);
+			
+			return responseEntity;
+		}
 	
-	@Autowired
-	JwtGenerator jwtGenerator;
+		@GetMapping(path = {"/get/{id}"})
+		public ResponseEntity<User> getUser(@PathVariable(name="id",required=true) int id) {
+			System.out.println("id : "+id);
 	
-	@PostMapping("/create")
-	public ResponseEntity<User> createUser(@RequestBody User userReq) {		
-		User res = userServiceImpl.create(userReq);
-		System.out.println("res : "+res);
-		
-		ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
-		
-		return responseEntity;
+			User res = userService.get(id);
+			System.out.println("res : "+res);
+			
+			ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.ACCEPTED);
+			
+			return responseEntity;
+		}
 	
-	}
-	
-	@PutMapping("/update")
-	public ResponseEntity<User> updateUser(@RequestBody User userReq) {		
-		User res = userServiceImpl.update(userReq);
-		System.out.println("res : "+res);
+		@GetMapping("/verifyEmail/{email}/{verificationCode}")
+		public boolean verifyEmail(@PathVariable(name="email",required=true) String email,
+				@PathVariable(name="verificationCode",required=true) String verificationCode) {     
+			boolean res = userService.verifyEmail(email, verificationCode);
+			System.out.println("res : "+res);
+			
+			return res;
+		}
 		
-		ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
+		@DeleteMapping("/delete/{id}")
+		public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
+			String res = userService.delete(id);
+			System.out.println("res : "+res);
+			
+			ResponseEntity<String> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
+			
+			return responseEntity;
+		}
 		
-		return responseEntity;
-	}
-	
-	@GetMapping(path = {""})
-	public ResponseEntity<List<User>> getAllUsers() {
-		List<User> res = userServiceImpl.get();
-		System.out.println("res : "+res);
-		
-		ResponseEntity<List<User>> responseEntity = new ResponseEntity<>(res, HttpStatus.ACCEPTED);
-		
-		return responseEntity;
-	}
+		@PostMapping("/login")
+		public ResponseEntity<Map<String, String>> loginUser(
 
-	@GetMapping(path = {"/{id}"})
-	public ResponseEntity<User> getUser(@PathVariable(name="id",required=true) int id) {
-		System.out.println("id : "+id);
+				@RequestBody Map<String, String> loginCreds
+		) {
+	
+				
+				System.out.println(loginCreds);
+				
+				User res = userService.loginUser(loginCreds);
+				
+				Map<String, String> sampleRes = new HashMap<>();
+				sampleRes.put("Response", "Wrong Credentials");
+				
+				ResponseEntity<Map<String, String>> responseEntity = new ResponseEntity<>(sampleRes, HttpStatus.NOT_FOUND);
+				
+				if(res!=null) {
+					Map<String, String> responseMap = jwtGenerator.generateToken(res);					responseMap.put("userId",String.valueOf(res.getId()));
+					responseMap.put("email_id",res.getEmailId());
+					responseMap.put("username",res.getUsername());
+					responseMap.put("name",res.getName());
+					responseMap.put("profile_picture",res.getProfilePic());
+	
+					responseEntity = new ResponseEntity<>(responseMap, 
+							HttpStatus.ACCEPTED);                       
+				}
+	
+			return responseEntity;
+		}
 
-		User res = userServiceImpl.get(id);
-		System.out.println("res : "+res);
-		
-		ResponseEntity<User> responseEntity = new ResponseEntity<>(res, HttpStatus.ACCEPTED);
-		
-		return responseEntity;
-	}
-
-
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable("id") int id) {
-		String res = userServiceImpl.delete(id);
-		System.out.println("res : "+res);
-		
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(res, HttpStatus.CREATED);
-		
-		return responseEntity;
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<Map<String, String>> loginUser(@RequestBody User user) {
-		User res = userServiceImpl.loginUser(user);
-		ResponseEntity<Map<String, String>> responseEntity = new ResponseEntity<>(jwtGenerator.generateToken(res), 
-				HttpStatus.ACCEPTED);		
-
-		return responseEntity;
-	}
-}
+	
+	

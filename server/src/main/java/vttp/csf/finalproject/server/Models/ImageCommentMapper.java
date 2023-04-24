@@ -11,7 +11,7 @@ public class ImageCommentMapper implements RowMapper<ImageComment>{
 		ImageComment imageComment = new ImageComment();
 		imageComment.setId(rs.getInt("id"));
 		imageComment.setUserId(rs.getInt("user_id"));
-		imageComment.setLocationId(rs.getInt("location_id"));
+		imageComment.setLocationUuid(rs.getInt("location_id"));
 		imageComment.setBlobc(rs.getString("blobc"));
 
 		return imageComment;

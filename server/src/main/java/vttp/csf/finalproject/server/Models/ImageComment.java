@@ -6,7 +6,7 @@ public class ImageComment {
     @Id
 	private int id;	
 	private int userId;
-	private int locationId;
+	private int locationUuid;
 	private String blobc;
 	
 	public int getId() {
@@ -21,11 +21,11 @@ public class ImageComment {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getLocationId() {
-		return locationId;
+	public int getLocationUuid() {
+		return locationUuid;
 	}
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setLocationUuid(int locationId) {
+		this.locationUuid = locationId;
 	}
 	public String getBlobc() {
 		return blobc;
@@ -33,7 +33,5 @@ public class ImageComment {
 	public void setBlobc(String blobc) {
 		this.blobc = blobc;
 	}
-    public Object getLocationUuid() {
-        return null;
-    }	
+
 }

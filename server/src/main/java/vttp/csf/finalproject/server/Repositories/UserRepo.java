@@ -2,36 +2,38 @@ package vttp.csf.finalproject.server.Repositories;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 
 import vttp.csf.finalproject.server.Models.EmailDets;
 import vttp.csf.finalproject.server.Models.User;
 import vttp.csf.finalproject.server.Models.UserMapper;
-
-public class UserRepo 
+import vttp.csf.finalproject.server.Services.EmailService;
+@Repository
+public class UserRepo {
 // implements UserRepoInt 
-{@Value("${server.port}")
-String serverPort;
+// @Value("${server.port}")
+// String serverPort;
 
 @Value("${ui_app_base_url}")
 String ui_app_base_url;
 
-Logger logger = LoggerFactory.getLogger(UserRepoImpl.class);
+Logger logger = LoggerFactory.getLogger(UserRepo.class);
 
 JdbcTemplate jdbcTemplate;
 
-@Autowired 
-private EmailServiceImpl emailServiceImpl;
 
 private final String SQL_FIND_USER = "select id, name,username,email_id,profile_picture from users where users.id = ?";
 private final String SQL_DELETE_USER = "delete from users where id = ?";
@@ -59,7 +61,10 @@ private final String SQL_UPDATE_USER_PASSWORD = "update users set "
 private PasswordEncoder passwordEncoder;
 
 @Autowired
-public UserRepoImpl(DataSource dataSource) {
+private EmailService emailService;
+
+@Autowired
+public UserRepo(DataSource dataSource) {
 	jdbcTemplate = new JdbcTemplate(dataSource);
 }
 
@@ -117,7 +122,7 @@ public String createUser(User user) {
 		"/"+emailVerificationCode);
 		
 		String emailSentStatus
-				= EmailDets.sendSimpleMail(emailDetails);
+				= emailService.sendSimpleMail(emailDetails);
 
 	}catch(DuplicateKeyException e) {
 		if(e.getMessage().indexOf("];")!=-1) {
@@ -197,3 +202,4 @@ public static String randomAlphanumericString(int length) {
 	return randomString.toString();
 	}
 }
+

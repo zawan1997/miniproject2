@@ -6,7 +6,7 @@ public class Comment {
     @Id
 	private int id;	
 	private int userId;
-	private int locationId;
+	private int locationUuid;
 	private String text;
 	
 	public int getId() {
@@ -21,11 +21,11 @@ public class Comment {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getLocationId() {
-		return locationId;
+	public int getLocationUuid() {
+		return locationUuid;
 	}
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setLocationUuid(int locationId) {
+		this.locationUuid = locationId;
 	}
 	public String getText() {
 		return text;
@@ -33,7 +33,5 @@ public class Comment {
 	public void setText(String text) {
 		this.text = text;
 	}
-    public Object getLocationUuid() {
-        return null;
-    }
+   
 }

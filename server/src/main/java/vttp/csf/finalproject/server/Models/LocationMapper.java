@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class LocationMapper implements RowMapper<Location>{
 	
-	public Location mapRow(ResultSet rs, int rowNum) {
+	public Location mapRow(ResultSet rs, int rowNum) throws SQLException {
 	Location location = new Location();
 	location.setId(rs.getInt("id"));
 	location.setUserId(rs.getInt("user_id"));
