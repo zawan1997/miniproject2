@@ -1,98 +1,68 @@
 package vttp.csf.finalproject.server.Models;
 
-import jakarta.json.Json;
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
+import org.springframework.data.annotation.Id;
+
 
 public class Location {
+
+	private int id;
+    private int userId;
+    private String locationUuid;
     private String name;
     private String body;
     private String primaryContactNo;
     private String openTime;
     private String closeTime;
-    private String primaryFileMediumUuid;
-
-    private String uuid; //primary key for location table
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getPrimaryContactNo() {
-        return primaryContactNo;
-    }
-
-    public void setPrimaryContactNo(String primaryContactNo) {
-        this.primaryContactNo = primaryContactNo;
-    }
-
-    public String getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(String openTime) {
-        this.openTime = openTime;
-    }
-
-
-    public String getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(String closeTime) {
-        this.closeTime = closeTime;
-    }
-
-    public String getPrimaryFileMediumUuid() {
-        return primaryFileMediumUuid;
-    }
-
-    public void setPrimaryFileMediumUuid(String primaryFileMediumUuid) {
-        this.primaryFileMediumUuid = primaryFileMediumUuid;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public String getLocationUuid() {
+		return locationUuid;
+	}
+	public void setLocationUuid(String locationUuid) {
+		this.locationUuid = locationUuid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
+	}
+	public String getPrimaryContactNo() {
+		return primaryContactNo;
+	}
+	public void setPrimaryContactNo(String primaryContactNo) {
+		this.primaryContactNo = primaryContactNo;
+	}
+	public String getOpenTime() {
+		return openTime;
+	}
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+	public String getCloseTime() {
+		return closeTime;
+	}
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
 
 
-    public static Location create(JsonObject jo) {
-        Location loc = new Location();
-        loc.setName(jo.getString("name"));
-        loc.setBody(jo.getString("body"));
-        loc.setPrimaryContactNo(jo.getString("primaryContactNo"));
-        loc.setCloseTime(jo.getString("closeTime"));
-        loc.setUuid(jo.getString("uuid"));
-        return loc;
-    }
-
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-                .add("name", name)
-                .add("body", body)
-                .add("primaryContactNo", primaryContactNo)
-                .add("closeTime", closeTime)
-                // .add("libraryUuid", libraryUuid)
-                .add("uuid", uuid)
-                .add("primaryFileMediumUuid", primaryFileMediumUuid)
-
-                .build();
-    }
 
 }

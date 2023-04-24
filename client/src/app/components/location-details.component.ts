@@ -12,9 +12,9 @@ import { LocationService } from '../services/location.service';
 export class LocationDetailsComponent implements OnInit {
   TIH_API_KEY = environment.tih_api_key;
   params$! : Subscription
-  model = new Location("","", "", "", "");
+  locationModel: Location = new Location;
 
-  constructor(private lSvc: LocationService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private locationService: LocationService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.params$ = this.activatedRoute.params.subscribe(
@@ -25,12 +25,7 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   getLocationFromAPI(location: string) {
-    this.lSvc.getLocation(location, this.TIH_API_KEY)
-      .then((result)=>{
-        this.model = new Location(
-          
-        );
-      })
+//    this.locationService.getLocations(location);
   }
   
 }

@@ -10,13 +10,12 @@ export class LocationService {
     
     constructor(private httpClient:HttpClient) {}
 
-    getLocation(location: string, apiKey:string): Promise<any>{
-        const params = new HttpParams()
-        .set("keyword",location)
-        .set("apikey", apiKey)
-
-        return lastValueFrom(this.httpClient
-        .get(environment.tih_api_url, {params: params}))
-
+    getLocations(location: string): any {
+//        return firstValueFrom(
+    return this.httpClient.get<Location[]>(location);
+      //  )
     }
+
+    // getLocationsPerUser()
+    
 }

@@ -2,12 +2,12 @@ package vttp.csf.finalproject.server.Models;
 
 import org.springframework.data.annotation.Id;
 
-public class Comment {
+public class ImageComment {
     @Id
 	private int id;	
 	private int userId;
 	private int locationId;
-	private String text;
+	private String blobc;
 	
 	public int getId() {
 		return id;
@@ -27,13 +27,13 @@ public class Comment {
 	public void setLocationId(int locationId) {
 		this.locationId = locationId;
 	}
-	public String getText() {
-		return text;
+	public String getBlobc() {
+		return blobc;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setBlobc(String blobc) {
+		this.blobc = blobc;
 	}
     public Object getLocationUuid() {
         return null;
-    }
+    }	
 }
