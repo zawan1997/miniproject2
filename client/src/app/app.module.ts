@@ -20,7 +20,6 @@ import { CommentListComponent } from './common/comment-list/comment-list.compone
 import { AddCommentComponent } from './common/add-comment/add-comment.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { ErrorIntercept } from './services/error.interceptor';
-import { UserLocationsComponent } from './user-locations/user-locations.component';
 
 
 @NgModule({
@@ -40,7 +39,6 @@ import { UserLocationsComponent } from './user-locations/user-locations.componen
     CommentListComponent,
     AddCommentComponent,
     EditProfileComponent,
-    UserLocationsComponent,
   ],
   imports: [
     BrowserModule,

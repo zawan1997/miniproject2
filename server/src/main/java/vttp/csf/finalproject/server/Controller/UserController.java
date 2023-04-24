@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vttp.csf.finalproject.server.Config.JwtGenerator;
+// import vttp.csf.finalproject.server.Config.JwtGenerator;
 import vttp.csf.finalproject.server.Models.User;
 import vttp.csf.finalproject.server.Services.UserService;
 
@@ -27,8 +27,8 @@ public class UserController {
 		@Autowired
 		UserService userService;    
 		
-		@Autowired
-		JwtGenerator jwtGenerator;
+		// @Autowired
+		// JwtGenerator jwtGenerator;
 		
 		@PostMapping("/create")
 		public ResponseEntity<User> createUser(@RequestBody User userReq) {     
@@ -119,7 +119,9 @@ public class UserController {
 				ResponseEntity<Map<String, String>> responseEntity = new ResponseEntity<>(sampleRes, HttpStatus.NOT_FOUND);
 				
 				if(res!=null) {
-					Map<String, String> responseMap = jwtGenerator.generateToken(res);					responseMap.put("userId",String.valueOf(res.getId()));
+					Map<String, String> responseMap = new HashMap<String, String>();
+					// = jwtGenerator.generateToken(res);					
+					responseMap.put("userId",String.valueOf(res.getId()));
 					responseMap.put("email_id",res.getEmailId());
 					responseMap.put("username",res.getUsername());
 					responseMap.put("name",res.getName());

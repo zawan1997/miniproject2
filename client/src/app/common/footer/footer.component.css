@@ -1,0 +1,9 @@
+footer {
+    background: rgb(11,6,21);
+    background: linear-gradient(90deg, rgba(11,6,21,1) 0%, rgba(62,39,91,1) 50%, rgba(107,87,135,1) 100%);
+    color: white;
+}
+
+.fs-12 {
+    font-size: 12px;
+}

@@ -17,6 +17,7 @@ export class ApiService {
   getheaders() {
     const userdata = JSON.parse(this.storageService.getLocalItem('userdata')!);
     let token = '';
+    //there is userdata, we give a token
     if (userdata) {
       token = userdata.token;
     }
@@ -29,8 +30,12 @@ export class ApiService {
     return options;
   }
 
+//generic GET POST PUT
+
+
   get(url: string, customHeaders = false): any {
     const headers: any = customHeaders ? customHeaders: this.getheaders();
+    //To get map the parameters to the base URL
     const apiUrl = this.baseUrl + url;
     return this.http.get(apiUrl, headers);
   }
@@ -48,3 +53,4 @@ export class ApiService {
   }
 
 }
+

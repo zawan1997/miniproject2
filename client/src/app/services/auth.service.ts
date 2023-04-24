@@ -26,6 +26,8 @@ export class AuthService {
   login(params: any): Observable<any> {
     const url = API_URLS.LOGIN;
     return this.api.post(url, params).pipe(map((val: any) => {
+          //once logged in then is authenticated will pass into true
+
       this.storageService.setLocalItem('isLoggedIn', 'true');
       this.storageService.setLocalItem('userId', val.userId);
       this.setIsAuthenticated(true);
@@ -35,6 +37,7 @@ export class AuthService {
 
   logout() {
     this.setIsAuthenticated(false);
+    //removing the local stored items when logging out
     this.storageService.deleteLocalItem('isLoggedIn');
     this.storageService.deleteLocalItem('userId');
     this.router.navigate(['/login']);
@@ -51,3 +54,4 @@ export class AuthService {
     }));
   }
 }
+

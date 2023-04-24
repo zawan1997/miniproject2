@@ -1,0 +1,16 @@
+<form >
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" #commentBox id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Comments</label>
+    </div>
+    <div class="attach-file d-flex mt-2" (click)="fileName === '' ? addAttachment(fileRef): ''">
+        <span *ngIf="fileName === ''" class="d-flex">
+            <i class="bi bi-plus-square cursor-pointer"></i> <div class="text fs-12 ms-2 cursor-pointer"> Add Attachment</div>
+        </span>
+        <span *ngIf="fileName!==''">
+            {{fileName}} <i class="bi bi-x-circle cursor-pointer" (click)="fileName=''"></i>
+        </span>
+    </div>
+    <input type="file" class="d-none" id="file" #fileRef name="attachment" (change)="onFileInputChange($event)" accept="image/png, image/jpeg">
+    <button class="btn btn-info my-3" type="submit" (click)="submitTextComment(commentBox)">Submit</button>
+</form>

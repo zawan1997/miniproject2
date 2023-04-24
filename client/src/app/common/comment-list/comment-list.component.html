@@ -1,0 +1,34 @@
+<div class="mt-5">
+  <div class="row d-flex justify-content-center">
+      <div class="col-12">
+          <div class="headings d-flex justify-content-between align-items-center mb-3" *ngIf="commentList.length > 0">
+            <h3>Comments</h3>              
+          </div>
+          <div class="card p-3 my-3"  *ngFor="let comment of commentList">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="user d-flex flex-row align-items-center">
+                <span>
+                  <small class="font-weight-bold text-primary"></small> 
+                  <small class="font-weight-bold">
+                    {{comment.text}}    
+                  </small>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="image-comment" *ngIf="imageCommentList.length> 0">
+            <img [src]="item.blobc" *ngFor="let item of imageCommentList" class="img-thumbnail" alt="images">
+          </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="row my-4">
+    <div class="col-12">
+        <h6 class="text fs-20">
+            Add Comment
+        </h6>
+        <app-add-comment [uuid]="uuid" (commentAdded)="onCommentAdded($event)" (imageCommentAdded)="onImageCommentAdded($event)"></app-add-comment>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.positioning {
+    position: absolute;
+    top: 30%;
+    left: 7%;
+}
+
+@media (max-width: 768px) {
+    .positioning {
+        left: 0;
+    }
+
+    .img-fluid {
+        height: 100vh;
+        width: auto;
+        object-fit: cover;
+    }
+}

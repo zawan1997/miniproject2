@@ -24,8 +24,8 @@ import vttp.csf.finalproject.server.Services.EmailService;
 @Repository
 public class UserRepo {
 // implements UserRepoInt 
-// @Value("${server.port}")
-// String serverPort;
+@Value("${server.port}")
+String serverPort;
 
 @Value("${ui_app_base_url}")
 String ui_app_base_url;
@@ -170,6 +170,7 @@ public User loginUser(Map<String, String> userLoginMap) {
 	}
 }
 
+//try to send s3 profile pciture link to sql
 public String getProfilePicNameById(int userId) {
 	String profilePic = null;
 	try {
@@ -189,6 +190,7 @@ public boolean uploadProfilePic(int userId, String profilePicName) {
 	return jdbcTemplate.update(SQL_UPDATE_USER_PROFILE_PIC, userId, profilePicName) > 0;
 }
 
+//for email verification and pathway later
 public static String randomAlphanumericString(int length) {
 	String alphanumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuv";
 	StringBuffer randomString = new StringBuffer(length);

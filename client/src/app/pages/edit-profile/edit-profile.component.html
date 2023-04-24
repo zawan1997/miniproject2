@@ -1,0 +1,142 @@
+<div class="grid text-center my-5">
+    <div class="g-col-4"></div>
+    <div class="g-col-4">
+        <div class="display-6">
+        Edit Profile Page
+        </div>
+    </div>
+    <div class="g-col-4"></div>
+</div>
+
+<div class="container my-5" [class]="util.isMobile() ? '': 'w-50'">
+    <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="name-username" data-bs-toggle="tab" data-bs-target="#name-username-pane" type="button" role="tab" aria-controls="name-username" aria-selected="true">Name & Username</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="change-password" data-bs-toggle="tab" data-bs-target="#change-password-pane" type="button" role="tab" aria-controls="change-password-pane" aria-selected="false">Change Password</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="update-profile" data-bs-toggle="tab" data-bs-target="#update-profile-pane" type="button" role="tab" aria-controls="update-profile-pane" aria-selected="false">Update Profile</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade active show" id="name-username-pane" role="tabpanel" aria-labelledby="name-username" tabindex="0">
+          <form class="row g-3 my-3" [formGroup]="userForm" (ngSubmit)="onUserFormSubmit()">
+              <div class="col-md-6">
+                  <label for="inputName" class="form-label">Name</label>
+                  <input type="text"
+                    formControlName="name" class="form-control" id="inputName" required>
+                    <ng-container *ngIf="userForm.get('name')?.invalid && (userForm.get('name')?.dirty || userForm.get('name')?.touched)">
+                        <div class="text-danger" *ngIf="userForm.get('name')?.hasError('required')">
+                            {{formErrors.required}}
+                        </div>
+                    </ng-container>
+              </div>
+              <div class="col-md-6">
+                  <label for="inputUsername" class="form-label">Username</label>
+                  <input type="text"
+                    formControlName="username"
+                   class="form-control" id="inputUsername" required>
+                   <ng-container *ngIf="userForm.get('username')?.invalid && (userForm.get('username')?.dirty || userForm.get('username')?.touched)">
+                        <div class="text-danger" *ngIf="userForm.get('username')?.hasError('required')">
+                            {{formErrors.required}}
+                        </div>
+                    </ng-container>
+              </div>
+              <div class="col-12">
+                  <div class="form-check">
+                      <input class="form-check-input" formControlName="agreeUser" type="checkbox" id="gridCheck2" required>
+                      <label class="form-check-label" for="gridCheck2">
+                        I agree to update my credentials
+                      </label>
+                        <ng-container *ngIf="userForm.get('agreeUser')?.invalid && (userForm.get('agreeUser')?.dirty || userForm.get('agreeUser')?.touched)">
+                            <div class="text-danger" *ngIf="userForm.get('agreeUser')?.hasError('required')">
+                                {{formErrors.required}}
+                            </div>
+                        </ng-container>
+                  </div>
+              </div>
+              <div class="col-12 my-5">
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                      <button class="btn btn-primary" type="submit">Update</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="tab-pane fade" id="change-password-pane" role="tabpanel" aria-labelledby="change-password" tabindex="0">
+          <form class="row g-3 my-3" [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()">
+              <div class="col-md-12">
+                  <label for="inputPassword" class="form-label">New Password</label>
+                  <div class="input-group">
+                      <input [type]="showPassword ? 'text': 'password'" class="form-control" 
+                        formControlName="password"
+                        id="inputPassword" aria-describedby="button-addon" required>
+                      <button class="btn btn-secondary" type="button" id="button-addon" (click)="showPassword = !showPassword">{{showPassword? 'Hide': 'Show'}}</button>
+                  </div>
+                  <ng-container *ngIf="changePasswordForm.get('password')?.invalid && (changePasswordForm.get('password')?.dirty || changePasswordForm.get('password')?.touched)">
+                    <div class="text-danger" *ngIf="changePasswordForm.get('password')?.hasError('required')">
+                        {{formErrors.required}}
+                    </div>
+                    <div class="text-danger" *ngIf="changePasswordForm.get('password')?.hasError('pattern')">
+                        {{formErrors.pattern}}
+                      </div>
+                  </ng-container>
+                  
+              </div>
+              <div class="col-12">
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck1" formControlName="agreePass">
+                      <label class="form-check-label" for="gridCheck1">
+                        I agree to update my credentials
+                      </label>
+                      <ng-container *ngIf="changePasswordForm.get('agreePass')?.invalid && (changePasswordForm.get('agreePass')?.dirty || changePasswordForm.get('agreePass')?.touched)">
+                        <div class="text-danger" *ngIf="changePasswordForm.get('agreePass')?.hasError('required')">
+                            {{formErrors.required}}
+                        </div>
+                      </ng-container>
+                  </div>
+              </div>
+              <div class="col-12 my-5">
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                      <button class="btn btn-primary" type="submit">Update</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="tab-pane fade" id="update-profile-pane" role="tabpanel" aria-labelledby="update-profile" tabindex="0">
+        <ng-container *ngIf="profilePicValue">
+            <img [src]="profilePicValue" class="img-thumbnail" alt="profilePic">
+        </ng-container>
+          <form class="row g-3 my-3" [formGroup]="profilePicForm" (ngSubmit)="onProfilePicUpdated()">
+              <div class="input-group mb-3">
+                  <input type="file" class="form-control" id="inputGroupFile02" (change)="onFileChange($event)">
+                  <label class="input-group-text" for="inputGroupFile02">Add new Profile Pic</label>
+              </div>
+              <ng-container *ngIf="profilePicForm.get('profilePic')?.invalid && (profilePicForm.get('profilePic')?.dirty || profilePicForm.get('profilePic')?.touched)">
+                <div class="text-danger" *ngIf="profilePicForm.get('profilePic')?.hasError('required')">
+                    {{formErrors.required}}
+                </div>
+              </ng-container>
+              <div class="col-12">
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck" formControlName="agreePic">
+                      <label class="form-check-label" for="gridCheck">
+                        I agree to update my credentials
+                      </label>
+                      <ng-container *ngIf="profilePicForm.get('agreePic')?.invalid && (profilePicForm.get('agreePic')?.dirty || profilePicForm.get('agreePic')?.touched)">
+                        <div class="text-danger" *ngIf="profilePicForm.get('agreePic')?.hasError('required')">
+                            {{formErrors.required}}
+                        </div>
+                      </ng-container>
+                  </div>
+              </div>
+              <div class="col-12 my-5">
+                  <div class="d-grid gap-2 col-6 mx-auto">
+                      <button class="btn btn-primary" type="submit">Update</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+</div>

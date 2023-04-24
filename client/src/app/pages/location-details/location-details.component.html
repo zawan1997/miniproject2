@@ -1,0 +1,35 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card" [class]="util.isMobile() ? 'p-3':'p-5'">
+                <div class="card-title">
+                    <h1>
+                        {{details.name}}
+                    </h1>
+                </div>
+                <div class="card-text" [innerHTML]="details.body">
+                </div>
+                <div class="card-subtitle" *ngIf="details?.contact">
+                    Primary Contact: {{details.contact.primaryContactNo}}
+                    Secondary Contact: {{details.contact.secondaryContactNo}}
+                </div>
+                <div class="card-text">
+                    {{details.description}}
+                </div>
+                <div class="card-text" *ngIf="details?.tags?.length > 0">
+                    Tags:  <span class="badge bg-secondary" *ngFor="let item of details?.tags"> {{item}} </span>
+                </div>
+                <div class="card-details" *ngIf="details?.businessHour?.length > 0">
+                    Business hours :
+                    <ul>
+                        <li *ngFor="let item of details?.businessHour">
+                            {{item.day.split('_').join(' ') | titlecase }}: Opens at: {{item.openTime}} Closes at: {{item.closeTime}}
+                        </li>
+                    </ul>
+                </div>
+                <app-comment-list [uuid]="uuid"></app-comment-list>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+//Same as populate method from ws 
 public class CommentMapper implements RowMapper <Comment>{
 	public Comment mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Comment comment = new Comment();

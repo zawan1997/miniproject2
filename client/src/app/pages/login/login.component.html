@@ -1,0 +1,66 @@
+<div class="grid text-center my-5">
+  <div class="g-col-4"></div>
+  <div class="g-col-4">
+    <div class="display-6">
+      Login Page
+    </div>
+  </div>
+  <div class="g-col-4"></div>
+</div>
+
+<div class="container my-5 mx-auto" [class]="util.isMobile() ? '': 'w-50'">
+  <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Please enter your email id</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="email"
+      />
+    </div>
+    <ng-container *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+      <div class="text-danger" *ngIf="loginForm.get('email')?.hasError('required')">
+        {{formErrors.required}}
+      </div>
+      <div class="text-danger" *ngIf="loginForm.get('email')?.hasError('email')">
+        {{formErrors.email.email}}
+      </div>
+    </ng-container>
+    
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <div class="input-group mb-3">
+        <input 
+          [type]="showPassword ? 'text': 'password'" 
+          class="form-control"
+          id="exampleInputPassword1" formControlName="password" aria-describedby="button-addon2" />
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="showPassword = !showPassword">
+          {{showPassword ? "Hide": 'Show'}}
+        </button>
+      </div>
+      <ng-container *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+        <div class="text-danger" *ngIf="loginForm.get('password')?.hasError('required')">
+          {{formErrors.required}}
+        </div>
+        <div class="text-danger" *ngIf="loginForm.get('password')?.hasError('pattern')">
+          {{formErrors.password.pattern}}
+        </div>
+      </ng-container>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+    </div>
+  </form>
+</div>
+
+<div class="row h-100" *ngIf="isLoading">
+  <div class="col-12">
+      <div class="d-flex justify-content-center align-items-center">
+          <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="card my-4" *ngIf="locationData">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a [routerLink]="['/','locations', 'details', locationData.uuid]">
+                {{locationData.name}}
+            </a>
+        </h5>
+        <div class="card-subtitle">
+            Primary Contact: {{locationData.contact.primaryContactNo}}
+            Secondary Contact: {{locationData.contact.secondaryContactNo}}
+        </div>
+        <div class="card-text">
+            {{locationData.description}}
+        </div>
+        <div class="card-details" *ngIf="locationData.businessHour.length > 0">
+            Business hours :
+            <ul>
+                <li *ngFor="let item of locationData.businessHour">
+                    {{item.day.split('_').join(' ') | titlecase }}: Opens at: {{item.openTime}} Closes at: {{item.closeTime}}
+                </li>
+            </ul>
+        </div>
+        <div class="actions float-end">
+            <button class="btn btn-primary mx-3" (click)="saveUserLocation()">Save</button>
+            <a 
+                target="_blank"
+                *ngIf="locationData?.location?.latitude && locationData.location.longitude" 
+                [href]="'https://www.google.com/maps/search/'+ locationData.location.latitude +','+locationData.location.longitude">
+                <button class="btn btn-secondary" >Go to map</button>
+            </a>
+        </div>
+    </div>
+</div>

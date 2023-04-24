@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <img src="./assets/images/header-image.jpeg" class="img-fluid" alt="header image">
+        </div>
+    </div>
+</div>
+<div class="container my-5 card p-4 positioning shadow">
+    <div class="row mb-3">
+        <div class="col-6">
+            <h1>
+                Hi, {{name}}
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form class="input-group mb-3" (submit)="onSearchClick(inputSearchRef.value)">
+                <input type="text" #inputSearchRef class="form-control" placeholder="Enter Location to search" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <button class="input-group-text" type="submit" id="basic-addon2">
+                  Search 
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
